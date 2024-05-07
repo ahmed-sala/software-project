@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "ecommerce"
+      MYSQL_PASSWORD: ""
+    ports:
+      - "3307:3306"  # Corrected port mapping
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - ecommerce-network  # Define a network for communication
+
+  shop-back:
+    build: .
+    restart: on-failure
+    depends_on:
+      - mysqldb
+    environment:
+      SPRING_APPLICATION_NAME: "ecommerce"
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/ecommerce  # Use service name
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      SPRING_JPA_SHOW_SQL: "true"
+    ports:
+      - "8080:8080"
+    networks:
+      - ecommerce-network  # Connect to the same network as MySQL
+
+volumes:
+  db-data:
+
+networks:
+  ecommerce-network:
