@@ -259,14 +259,14 @@ export default function Navigation() {
 
                             {/* Logo */}
                             <div className="ml-4 flex lg:ml-0">
-
-                                <span className="sr-only">Your Company</span>
-                                <img
-                                    src="https://res.cloudinary.com/ddkso1wxi/image/upload/v1675919455/Logo/Copy_of_Zosh_Academy_nblljp.png"
-                                    alt="Shopwithzosh"
-                                    className="h-8 w-8 mr-2"
-                                />
-
+                                <a href="/" className="flex items-center">
+                                    <span className="sr-only">Your Company</span>
+                                    <img
+                                        src="data:image/png;base64,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"
+                                        alt="Shopwithzosh"
+                                        className="h-8 w-8 mr-2"
+                                    />
+                                </a>
                             </div>
 
                             {/* Flyout menus */}
@@ -451,7 +451,8 @@ export default function Navigation() {
                                                     My Orders
                                                 </MenuItem>
                                                 {auth.user?.role === "ADMIN" && (
-                                                    <MenuItem onClick={() => navigate("/admin")}>Admin Dashboard</MenuItem>
+                                                    <MenuItem onClick={() => navigate("/admin")}>Admin
+                                                        Dashboard</MenuItem>
                                                 )}
                                                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
 

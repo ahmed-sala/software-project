@@ -42,6 +42,7 @@ public class AuthController {
         String password = user.getPassword();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
+        String userRole = user.getRole().toString();
         User isEmailExist = userRepository.findByEmail(email);
 
         if (isEmailExist != null) {
@@ -52,7 +53,11 @@ public class AuthController {
         createdUser.setPassword(passwordEncoder.encode(password));
         createdUser.setFirstName(firstName);
         createdUser.setLastName(lastName);
-        createdUser.setRole(User.UserRole.CUSTOMER);
+        if (userRole.equals("ADMIN")) {
+            createdUser.setRole(User.UserRole.ADMIN);
+        } else {
+            createdUser.setRole(User.UserRole.CUSTOMER);
+        }
 
         User savedUser = userRepository.save(createdUser);
         Cart cart = cartService.createCart(savedUser);

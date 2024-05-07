@@ -18,7 +18,7 @@ const Achivement = () => {
         <Card className="" sx={{position:"relative"}}>
             <CardContent>
                 <Typography variant="h6" sx={{ letterSpacing: ".25px" }}>
-                    Shop With Zosh
+                    Shopex
                 </Typography>
                 <Typography variant="body2">Congratulations 🥳</Typography>
                 <Typography variant="h5" sx={{my:3.1}}>420.8k</Typography>
