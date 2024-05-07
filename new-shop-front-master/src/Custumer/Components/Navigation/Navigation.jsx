@@ -9,6 +9,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import AuthModal from "../../Auth/AuthModal";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser, logout} from "../../../State/Auth/Action";
+import cart from "../Cart/Cart";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -22,6 +23,8 @@ export default function Navigation() {
     const openUserMenu = Boolean(anchorEl);
     const jwt = localStorage.getItem("jwt");
     const {auth} = useSelector(store => store)
+    const {cart} = useSelector(store => store)
+
     const dispatch = useDispatch()
     const location = useLocation();
 
@@ -447,7 +450,11 @@ export default function Navigation() {
                                                 <MenuItem onClick={() => navigate("/account/order")}>
                                                     My Orders
                                                 </MenuItem>
+                                                {auth.user?.role === "ADMIN" && (
+                                                    <MenuItem onClick={() => navigate("/admin")}>Admin Dashboard</MenuItem>
+                                                )}
                                                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
+
                                             </Menu>
                                         </div>
                                     ) : (
@@ -486,7 +493,7 @@ export default function Navigation() {
                                         />
                                         <span
                                             className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-
+                                            {cart.cart?.cartItems.length}
                                         </span>
                                         <span className="sr-only">items in cart, view bag</span>
                                     </Button>

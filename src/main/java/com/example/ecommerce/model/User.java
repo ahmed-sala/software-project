@@ -10,6 +10,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User {
+    public enum UserRole {
+        CUSTOMER,
+        ADMIN
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -17,7 +22,8 @@ public class User {
     private String lastName;
     private String password;
     private String email;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
     private String mobile;
     @OneToMany(mappedBy="user",cascade=CascadeType.ALL)
     private List<Address> address=new ArrayList<>();
@@ -35,9 +41,9 @@ public class User {
     private LocalDateTime createdAt;
 
 
-    public User(long id, String firstName, String lastName, String password, String email, String role, String mobile,
-            List<Address> address, List<Paymentlnformation> paymentlnformation,
-            List<Rating> ratings, List<Review> rivews, LocalDateTime createdAt) {
+    public User(long id, String firstName, String lastName, String password, String email, UserRole role, String mobile,
+                List<Address> address, List<Paymentlnformation> paymentlnformation,
+                List<Rating> ratings, List<Review> rivews, LocalDateTime createdAt) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -96,11 +102,11 @@ public class User {
         this.email = email;
     }
 
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 
@@ -151,5 +157,5 @@ public class User {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    
+
 }
