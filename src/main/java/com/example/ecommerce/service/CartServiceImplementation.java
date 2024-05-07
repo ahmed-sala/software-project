@@ -72,7 +72,7 @@ public class CartServiceImplementation implements CartService {
 
         for (CartItem cartItem : cart.getCartItems()) {
             totalPrice = totalPrice + cartItem.getPrice();
-            totalDiscountPrice = totalDiscountPrice + cart.getTotalDiscountedPrice();
+            totalDiscountPrice = totalDiscountPrice + cartItem.getDiscountedPrice();
             totalItem = totalItem + cartItem.getQuantity();
 
         }
